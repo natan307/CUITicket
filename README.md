@@ -8,7 +8,7 @@ A ticket system for Minecraft servers, built on [CrossUI](https://github.com/nat
 Bedrock forms, Java dialogs and chest menus from one plugin.
 
 [![License](https://img.shields.io/github/license/natan307/CUITicket?style=for-the-badge&color=blue)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/natan307/CUITicket?style=for-the-badge&color=green)](https://github.com/natan307/CUITicket/releases)
+[![Release](https://img.shields.io/github/v/release/natan307/CUITicket?style=for-the-badge&color=green)](https://github.com/natan307/CUITicket/releases/1.0.0)
 
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21.6%2B-62b47a?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square)
