@@ -1,0 +1,257 @@
+# CUITicket configuration. Run /ticketadmin reload after editing (changing storage needs a restart).
+
+storage:
+  # sqlite: a file in the plugin folder (tickets.db), nothing to set up.
+  # mysql:  for a database server. The drivers come with Spigot and Paper.
+  type: sqlite
+  mysql:
+    host: localhost
+    port: 3306
+    database: crossui_ticket
+    username: root
+    password: ""
+  # Closed tickets that were not touched for this many days are deleted. 0 keeps everything.
+  archive-after-days: 30
+
+tickets:
+  # How many tickets one player can have open at the same time.
+  max-open-per-player: 3
+  # Seconds between two tickets of the same player.
+  cooldown-seconds: 300
+  # Longest text a player can write (reason and replies).
+  reason-max-length: 300
+  # Tickets per page in lists.
+  page-size: 10
+  # How many of the latest replies are shown in a ticket.
+  max-replies-shown: 5
+  # Categories. "icon" is an item name for the button picture, "requires-target" asks for a player name.
+  # Bedrock pictures need the item to exist in the CrossUI icon pack (see ui.icon-pack-url).
+  categories:
+    - id: PLAYER_REPORT
+      label: "Player Report"
+      icon: IRON_SWORD
+      requires-target: true
+    - id: BUG_REPORT
+      label: "Bug Report"
+      icon: SPIDER_EYE
+      requires-target: false
+    - id: SUGGESTION
+      label: "Suggestion"
+      icon: ENCHANTED_BOOK
+      requires-target: false
+    - id: QUESTION
+      label: "Question"
+      icon: BOOK
+      requires-target: false
+
+ui:
+  # Item pictures on Bedrock buttons. The pictures are the icon pack of the CrossUI repository.
+  icons: true
+  icon-pack-url: "https://raw.githubusercontent.com/natan307/CrossUI/main/icons/"
+
+notifications:
+  # Tell staff with cuiticket.notify when a ticket is created.
+  notify-admins-online: true
+  # Tell the player when staff replies to or closes their ticket (offline players are told when they join).
+  notify-player-on-reply: true
+  notify-player-on-close: true
+  # Sound played with a notification. Leave empty for none.
+  sound: "entity.experience_orb.pickup"
+  # Seconds after joining before the join messages are shown.
+  join-delay-seconds: 3
+  # Waiting tickets listed to staff when they join.
+  join-list-max: 5
+
+metrics:
+  # bStats, anonymous (storage type and ticket counts). No player data is sent.
+  enabled: true
+
+# All texts. Colors use & codes. Placeholders such as %id% are filled in by the plugin.
+messages:
+  prefix: "&8[&bCUI&8] &r"
+
+  # Chat messages
+  no-permission: "&cYou do not have permission to do that."
+  players-only: "&cThis can only be used by a player."
+  ticket-created: "&aTicket &e%id% &acreated. Staff will reply as soon as possible."
+  ticket-invalid: "&cThat ticket is not valid. Please try again."
+  ticket-not-found: "&cThere is no ticket %id%."
+  ticket-cancelled: "&aTicket &e%id% &awas cancelled."
+  cancel-not-open: "&cTicket %id% cannot be cancelled anymore."
+  cancelled-note: "Cancelled by the player."
+  no-tickets: "&7You have no tickets yet. Use &f/ticket &7to create one."
+  flow-cancelled: "&7Ticket cancelled. Nothing was sent."
+  cooldown: "&cPlease wait %seconds% seconds before creating another ticket."
+  max-open: "&cYou already have %count% open tickets (maximum %max%). Wait until one is closed, or cancel one with &f/ticket cancel <id>&c."
+  target-empty: "&cPlease enter a player name."
+  target-self: "&cYou cannot report yourself."
+  reason-empty: "&cPlease write a message."
+  reply-empty: "&cPlease write a message."
+  reply-sent: "&aReply sent on ticket &e%id%&a."
+  ticket-closed-staff: "&aTicket &e%id% &awas closed."
+  ticket-already-closed: "&cTicket %id% is already closed."
+  ticket-reopened: "&aTicket &e%id% &awas opened again."
+  ticket-assigned: "&aTicket &e%id% &awas assigned to &f%admin%&a."
+  ticket-unassigned: "&aTicket &e%id% &ais not assigned to anyone now."
+  ticket-assigned-to-you: "&e%id% &7was assigned to you by &f%admin%&7."
+  assign-offline: "&c%admin% is not online."
+  assign-not-staff: "&c%admin% is not a staff member (missing cuiticket.notify)."
+  reloaded: "&aConfiguration reloaded."
+  usage-cancel: "&cUsage: /ticket cancel <id>"
+  usage-view: "&cUsage: /ticketadmin view <id>"
+  usage-reply: "&cUsage: /ticketadmin reply <id> [message]"
+  usage-close: "&cUsage: /ticketadmin close <id> [note]"
+  usage-assign: "&cUsage: /ticketadmin assign <id> <admin|none>"
+  usage-admin: "&cUnknown command. Use &f/ticketadmin help&c."
+
+  # Notifications
+  new-ticket: "&b%player% &7opened &e%id% &8(&7%category%&8)&7: &f%reason%"
+  view-button: "&a[View]"
+  view-hover: "&7Open ticket %id%"
+  ticket-replied: "&7Staff replied to your ticket &e%id%&7 (&f%admin%&7): &f%message%"
+  ticket-closed: "&7Your ticket &e%id% &7was closed by &f%admin%&7. &f%message%"
+  read-button: "&a[Read]"
+  read-hover: "&7Open ticket %id%"
+  join-ticket-replied: "&7Staff replied to your ticket &e%id% &8(&7%category%&8)&7."
+  join-ticket-closed: "&7Your ticket &e%id% &8(&7%category%&8) &7was closed."
+  my-tickets-button: "&a[My tickets]"
+  my-tickets-hover: "&7Open your tickets"
+  join-waiting: "&e%count% &7tickets are waiting for staff:"
+  join-line: "&8- &e%id% &b%player% &8(&7%category%&8) &f%reason% &8- &7%ago%"
+  join-more: "&7... and %more% more."
+  view-all-button: "&a[View tickets]"
+  view-all-hover: "&7Open the ticket list"
+  list-line: "&8- &e%id% &b%player% &8(&7%category%, %status%&8) &f%reason% &8- &7%ago%"
+
+  status:
+    open: "Open"
+    replied: "Replied"
+    closed: "Closed"
+
+  # Menus for players
+  ui:
+    back: "Back"
+    prev-page: "Previous page"
+    next-page: "Next page"
+    new-title: "New ticket"
+    new-content: "What do you need help with?\nYou have %open% of %max% open tickets."
+    my-tickets-button: "My tickets (%count%)"
+    target-label: "Player name"
+    target-placeholder: "Name of the player"
+    reason-label: "What happened? (max %max% characters)"
+    reason-placeholder: "Describe it in a few words"
+    evidence-label: "Link to proof (optional, leave empty to skip)"
+    evidence-placeholder: "https://..."
+    confirm-title: "Send this ticket?"
+    confirm-question: "Send it to the staff?"
+    send: "Send"
+    cancel: "Cancel"
+    mine-title: "My tickets"
+    mine-content: "Tickets %from% to %to% of %total%."
+    ticket-button: "%id%  %category%"
+    ticket-sub: "%status% - %ago%"
+    ticket-sub-new: "NEW reply - %status% - %ago%"
+    detail-title: "Ticket %id%"
+    cancel-ticket: "Cancel this ticket"
+    cancel-title: "Cancel %id%?"
+    cancel-body: "The staff will not look at this ticket anymore."
+    cancel-yes: "Yes, cancel it"
+    cancel-no: "No, keep it"
+
+  # Ticket details (used in menus and in the console)
+  detail:
+    status: "Status: %status%"
+    category: "Category: %category%"
+    from: "From: %player%"
+    target: "Player: %target%"
+    reason: "Message: %reason%"
+    evidence: "Proof: %evidence%"
+    assigned: "Handled by: %admin%"
+    nobody: "nobody yet"
+    created: "Created: %ago% (%date%)"
+    replies-header: "Replies (%count%):"
+    earlier: "... %count% earlier replies not shown"
+    reply-staff: "[Staff] %who% (%ago%): %message%"
+    reply-player: "%who% (%ago%): %message%"
+
+  # Menus for staff
+  admin:
+    home-title: "Tickets"
+    home-content: "%open% open, %replied% replied."
+    filter-open: "Open (%count%)"
+    filter-replied: "Replied (%count%)"
+    filter-closed: "Closed (%count%)"
+    filter-all: "All tickets (%count%)"
+    filter-mine: "Assigned to me (%count%)"
+    stats-button: "Statistics"
+    stats-title: "Ticket statistics"
+    list-title-open: "Open tickets"
+    list-title-replied: "Replied tickets"
+    list-title-closed: "Closed tickets"
+    list-title-all: "All tickets"
+    list-title-mine: "Assigned to me"
+    list-content: "Tickets %from% to %to% of %total%."
+    list-empty: "There are no tickets here."
+    ticket-button: "%id%  %category%"
+    ticket-sub: "%player% - %status% - %ago%"
+    detail-title: "Ticket %id%"
+    reply: "Reply"
+    reply-title: "Reply to %id%"
+    reply-label: "Your message to the player"
+    reply-placeholder: "Write your reply"
+    close: "Close"
+    close-title: "Close %id%"
+    close-label: "Note for the player (optional)"
+    close-placeholder: "Leave empty to close without a note"
+    reopen: "Open again"
+    assign: "Assign"
+    assign-title: "Assign %id%"
+    assign-content: "Who will handle this ticket?"
+    assign-me: "Assign to me"
+    unassign: "Assign to nobody"
+
+  stats:
+    title: "Ticket statistics"
+    total: "Total: %count%"
+    open: "Open: %count%"
+    replied: "Replied: %count%"
+    closed: "Closed: %count%"
+    by-category: "By category:"
+    category-line: "  %category%: %count%"
+
+  # Help texts
+  help-player:
+    - "&8[&bCUI&8] &rCUITicket &7v%version%"
+    - "&7Report once. Reach every admin. From any client."
+    - ""
+    - "&eCommands:"
+    - "  &f/ticket &7- Create a new ticket"
+    - "  &f/ticket mine &7- Your tickets"
+    - "  &f/ticket <id> &7- Details of one ticket"
+    - "  &f/ticket cancel <id> &7- Cancel a ticket"
+    - "  &f/ticket help &7- This help"
+    - ""
+    - "&eLinks:"
+    - "  &fGitHub:  &bhttps://github.com/natan307/CUITicket"
+    - "  &fWiki:    &bhttps://github.com/natan307/CUITicket/wiki"
+    - "  &fSupport: &bPaper, Spigot, Purpur, Folia"
+  help-admin:
+    - "&8[&bCUI&8] &rCUITicket &7v%version% &8- &cStaff"
+    - "&7Report once. Reach every admin. From any client."
+    - ""
+    - "&eCommands:"
+    - "  &f/ticketadmin &7- Ticket menu"
+    - "  &f/ticketadmin list &7- All tickets"
+    - "  &f/ticketadmin open &7- Open tickets"
+    - "  &f/ticketadmin closed &7- Closed tickets"
+    - "  &f/ticketadmin view <id> &7- Open one ticket"
+    - "  &f/ticketadmin reply <id> [message] &7- Reply to a ticket"
+    - "  &f/ticketadmin close <id> [note] &7- Close a ticket"
+    - "  &f/ticketadmin assign <id> <admin|none> &7- Assign a ticket"
+    - "  &f/ticketadmin stats &7- Statistics"
+    - "  &f/ticketadmin reload &7- Reload the configuration"
+    - ""
+    - "&eLinks:"
+    - "  &fGitHub:  &bhttps://github.com/natan307/CUITicket"
+    - "  &fWiki:    &bhttps://github.com/natan307/CUITicket/wiki"
+    - "  &fSupport: &bPaper, Spigot, Purpur, Folia"

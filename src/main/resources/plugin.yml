@@ -1,0 +1,39 @@
+name: CUITicket
+version: '${version}'
+main: io.github.natan307.cuiticket.CUITicketPlugin
+api-version: '1.21'
+description: Cross-platform ticket system, part of the CrossUI ecosystem
+author: natan307
+website: https://github.com/natan307/CUITicket
+depend: [CrossUI]
+folia-supported: true
+
+commands:
+  ticket:
+    description: Create and read your tickets
+    usage: /<command> [mine|<id>|cancel <id>|help]
+    permission: cuiticket.create
+  ticketadmin:
+    description: Manage tickets
+    usage: /<command> [list|open|closed|view <id>|reply <id>|close <id>|assign <id> <admin>|stats|reload|help]
+    permission: cuiticket.admin
+
+permissions:
+  cuiticket.create:
+    description: Create tickets and read your own tickets.
+    default: true
+  cuiticket.admin:
+    description: Use /ticketadmin. Includes the notify and reply permissions.
+    default: op
+    children:
+      cuiticket.notify: true
+      cuiticket.reply: true
+  cuiticket.reply:
+    description: Reply to tickets.
+    default: op
+  cuiticket.notify:
+    description: Get a message when a ticket is created, and a summary when you join.
+    default: op
+  cuiticket.bypass:
+    description: Ignore the ticket cooldown and the limit of open tickets.
+    default: op
