@@ -9,9 +9,6 @@ Bedrock forms, Java dialogs and chest menus from one plugin.
 
 [![License](https://img.shields.io/github/license/natan307/CUITicket?style=for-the-badge&color=blue)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/natan307/CUITicket?style=for-the-badge&color=green)](https://github.com/natan307/CUITicket/releases)
-[![Downloads](https://img.shields.io/github/downloads/natan307/CUITicket/total?style=for-the-badge&color=orange)](https://github.com/natan307/CUITicket/releases)
-[![Stars](https://img.shields.io/github/stars/natan307/CUITicket?style=for-the-badge&color=yellow)](https://github.com/natan307/CUITicket/stargazers)
-[![Issues](https://img.shields.io/github/issues/natan307/CUITicket?style=for-the-badge)](https://github.com/natan307/CUITicket/issues)
 
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21.6%2B-62b47a?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square)
